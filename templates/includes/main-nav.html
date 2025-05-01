@@ -1,0 +1,55 @@
+<div class="collapse navbar-collapse" id="main-nav">
+    <ul class="navbar-nav w-auto mx-auto">
+        <li class="nav-item d-block d-md-none">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'home' %}" id="home-link">
+                Home
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="all-categories-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+            </a>
+            <div class="dropdown-menu border" aria-labelledby="all-categories-link">
+                <a href="{% url 'products' %}?category=detective_noir" class="dropdown-item"><strong>Detective and Noir</strong></a>
+                <a href="{% url 'products' %}?category=love" class="dropdown-item"><strong>Love</strong></a>
+                <a href="{% url 'products' %}?category=fantasy_horror_thriller" class="dropdown-item"><strong>Fantasy, Horror and Thriller</strong></a>
+                <a href="{% url 'products' %}" class="dropdown-item"><strong>All Categories</strong></a>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="children-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Children
+            </a>
+            <div class="dropdown-menu border" aria-labelledby="children-link">
+                <a href="{% url 'products' %}?category=tales" class="dropdown-item"><strong>Tales</strong></a>
+                <a href="{% url 'products' %}?category=interactive_books" class="dropdown-item"><strong>Interactive books</strong></a>
+                <a href="{% url 'products' %}?category=tales,interactive_books" class="dropdown-item"><strong>All Childhood</strong></a>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="gift_ideas-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Gift ideas
+            </a>
+            <div class="dropdown-menu border" aria-labelledby="gift_ideas-link">
+                <a href="{% url 'products' %}?category=once_in_a_lifetime" class="dropdown-item"><strong>Once in a Lifetime</strong></a>
+                <a href="{% url 'products' %}?category=comics_graphic_novels" class="dropdown-item"><strong>Comics &amp; Graphic Novels</strong></a>
+                <a href="{% url 'products' %}?category=hobbies" class="dropdown-item"><strong>Hobbies</strong></a>
+                <a href="{% url 'products' %}?category=once_in_a_lifetime,comics_graphic_novels,hobbies" class="dropdown-item"><strong>All Ideas</strong></a>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="logo-font font-weight-bold nav-link text-black" href="#" id="specials-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Special Offers
+            </a>
+            <div class="dropdown-menu border" aria-labelledby="specials-link">
+                <a href="{% url 'products' %}?category=new_arrivals" class="dropdown-item"><strong>New Arrivals</strong></a>
+                <a href="{% url 'products' %}?category=deals" class="dropdown-item"><strong>Deals</strong></a>
+                <a href="{% url 'products' %}?category=clearance" class="dropdown-item"><strong>Clearance</strong></a>
+                <a href="{% url 'products' %}?category=new_arrivals,deals,clearance" class="dropdown-item"><strong>All Specials</strong></a>
+            </div>
+        </li>
+    </ul>
+</div>
