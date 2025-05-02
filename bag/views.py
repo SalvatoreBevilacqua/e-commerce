@@ -57,8 +57,11 @@ def remove_from_bag(request, item_id):
         product = get_object_or_404(Product, pk=item_id)
         bag = request.session.get('bag', {})
 
-        bag.pop(item_id)
-        messages.success(request, f'Removed {product.name} from your bag')
+        if item_id in bag:
+            bag.pop(item_id)
+            messages.success(request, f'Removed {product.name} from your bag')
+        else:
+            messages.error(request, f'Item {item_id} not in your bag')
 
         request.session['bag'] = bag
         return HttpResponse(status=200)

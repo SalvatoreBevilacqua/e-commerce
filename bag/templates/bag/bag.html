@@ -142,10 +142,22 @@
         var url = `/bag/remove/${itemId}/`;
         var data = {'csrfmiddlewaretoken': csrfToken};
 
-        $.post(url, data)
-         .done(function() {
-             location.reload();
-         });
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            success: function() {
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                // Handle errors
+                alert('Sorry, there was an error removing this item. Please try again.');
+                console.log('Error details:', error);
+            }
+        });
     })
 </script>
 {% endblock %}

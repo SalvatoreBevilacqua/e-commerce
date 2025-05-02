@@ -3,12 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.core.exceptions import ValidationError
 
 from .models import Product, Category
 from .forms import ProductForm
-
-# Create your views here.
-
 
 def all_products(request):
     """ A view to show all products, including sorting and search queries """
@@ -18,8 +16,10 @@ def all_products(request):
     categories = None
     sort = None
     direction = None
-
+    
+    # Handle GET parameters for filtering and sorting
     if request.GET:
+        # Sorting logic
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
@@ -32,21 +32,32 @@ def all_products(request):
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
-            products = products.order_by(sortkey)
-
+            
+            try:
+                products = products.order_by(sortkey)
+            except Exception as e:
+                messages.error(request, f"Sorting error: {e}")
+                
+        # Category filtering
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
             products = products.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
 
+        # Search query
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
                 return redirect(reverse('products'))
 
+            # Search in both name and description fields
             queries = Q(name__icontains=query) | Q(description__icontains=query)
-            products = products.filter(queries)
+            try:
+                products = products.filter(queries)
+            except Exception as e:
+                messages.error(request, f"Search error: {e}")
+                products = Product.objects.all()
 
     current_sorting = f'{sort}_{direction}'
 
