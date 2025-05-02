@@ -11,7 +11,8 @@ from .forms import ProductForm
 def all_products(request):
     """ A view to show all products, including sorting and search queries """
 
-    products = Product.objects.all()
+    # Use select_related to reduce database queries
+    products = Product.objects.all().select_related('category')
     query = None
     categories = None
     sort = None
@@ -74,7 +75,8 @@ def all_products(request):
 def product_detail(request, product_id):
     """ A view to show individual product details """
 
-    product = get_object_or_404(Product, pk=product_id)
+    # Use select_related to reduce database queries
+    product = get_object_or_404(Product.objects.select_related('category'), pk=product_id)
 
     context = {
         'product': product,
